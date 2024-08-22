@@ -1,8 +1,10 @@
 import { Inter } from 'next/font/google'
 
+import NUIProvider from '@/context/next-ui-context'
+
 import type { Metadata } from 'next'
 
-import './globals.css'
+import '../styles/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,8 +19,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html suppressHydrationWarning lang="en">
+      <body className={inter.className}>
+        <NUIProvider themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          {children}
+        </NUIProvider>
+      </body>
     </html>
   )
 }

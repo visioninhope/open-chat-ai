@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 工具样式复用 */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .row-x-center {
+    @apply flex justify-center;
+  }
+
+  .col-x-center {
+    @apply flex flex-col items-center;
+  }
+
+  .x-y-center {
+    @apply flex items-center justify-center;
+  }
+}
