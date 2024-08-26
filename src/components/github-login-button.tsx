@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { Button } from '@nextui-org/button'
 // import { useRouter } from 'next/navigation'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
-import type { ToastProps } from '@/components/toast'
-import Toast from '@/components/toast'
+import { ToastContext } from '@/context/toast-context'
 
 interface IProps {
   redirectPath: string
@@ -16,7 +15,8 @@ interface IProps {
 export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
   const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
-  const [showToast, setShowToast] = useState<ToastProps | null>(null)
+
+  const { showToast } = useContext(ToastContext)
 
   const handleSignOut = async () => {
     setIsLoading(true)
@@ -30,28 +30,26 @@ export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
   }
 
   const handleLoginClick = async () => {
+    showToast({
+      isVisible: true,
+      message: '登录成功，开始使用吧~',
+      type: 'success',
+    })
+    return
     setIsLoading(true)
     try {
       await signIn('github', { callbackUrl: redirectPath })
-      // setShowToast({
-      //   isVisible: true,
-      //   message: '登录成功，开始使用吧~',
-      //   type: 'success',
-      //   onClose: () => {
-      //     setShowToast(null)
-      //     router.refresh()
-      //   },
-      // })
+      showToast({
+        isVisible: true,
+        message: '登录成功，开始使用吧~',
+        type: 'success',
+      })
     } catch (error) {
       console.error('github授权登录失败', error)
-      setShowToast({
+      showToast({
         isVisible: true,
-        message: '服务器出了点意外，请稍后再试试~',
+        message: '登录失败，请稍后再试试~',
         type: 'error',
-        onClose: () => {
-          setShowToast(null)
-          setIsLoading(false)
-        },
       })
     }
   }
@@ -122,15 +120,6 @@ export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
         >
           注销登录
         </Button>
-      )}
-
-      {showToast && (
-        <Toast
-          message={showToast.message}
-          isVisible={showToast.isVisible}
-          type={showToast.type}
-          onClose={showToast.onClose}
-        />
       )}
     </>
   )

@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react'
+'use client'
+import React, { useContext, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 import { clsx } from 'clsx'
+
+import { ToastContext } from '@/context/toast-context'
 
 type MessageType = 'info' | 'success' | 'warning' | 'error'
 
@@ -14,7 +17,7 @@ interface ToastType {
 }
 
 export interface ToastProps {
-  message: string
+  message?: string
   type?: MessageType
   duration?: number
   onClose?: () => void
@@ -45,31 +48,23 @@ const toastTypes: ToastType = {
   },
 }
 
-const Toast = ({
-  message,
-  type = 'info',
-  duration = 3000,
-  onClose,
-  isVisible = false, // 默认不显示
-}: ToastProps) => {
-  const [visible, setVisible] = useState(isVisible)
+const Toast = () => {
+  const { toastInfo, closeToast } = useContext(ToastContext)
 
   useEffect(() => {
-    setVisible(isVisible)
-
-    if (isVisible) {
+    if (toastInfo?.isVisible) {
       const timer = setTimeout(() => {
-        setVisible(false)
-        if (onClose) onClose()
-      }, duration)
+        closeToast()
+        if (toastInfo?.onClose) toastInfo?.onClose()
+      }, toastInfo?.duration)
 
       return () => clearTimeout(timer)
     }
-  }, [isVisible, duration, onClose])
+  }, [toastInfo?.isVisible, toastInfo?.duration, toastInfo?.onClose])
 
-  if (!visible) return null
+  if (!toastInfo?.isVisible) return null
 
-  const { icon, bgColor, textColor } = toastTypes[type]
+  const { icon, bgColor, textColor } = toastTypes[toastInfo.type || 'info']
 
   return ReactDOM.createPortal(
     <div
@@ -80,7 +75,7 @@ const Toast = ({
       )}
     >
       <i className={clsx(icon, 'text-xl', 'ph-thin')}></i>
-      <span>{message}</span>
+      <span>{toastInfo.message}</span>
     </div>,
     document.body,
   )

@@ -1,8 +1,11 @@
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 
+import Toast from '@/components/toast'
+
 import { NextAuthProvider } from '@/context/next-auth-context'
 import NUIProvider from '@/context/next-ui-context'
+import { ToastContextProvider } from '@/context/toast-context'
 
 import type { Metadata } from 'next'
 
@@ -33,7 +36,12 @@ export default function RootLayout({
           <NUIProvider
             themeProps={{ attribute: 'class', defaultTheme: 'dark' }}
           >
-            {children}
+            <ToastContextProvider>
+              <>
+                <Toast />
+                {children}
+              </>
+            </ToastContextProvider>
           </NUIProvider>
         </NextAuthProvider>
       </body>
