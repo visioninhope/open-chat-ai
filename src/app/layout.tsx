@@ -1,5 +1,7 @@
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 
+import { NextAuthProvider } from '@/context/next-auth-context'
 import NUIProvider from '@/context/next-ui-context'
 
 import type { Metadata } from 'next'
@@ -20,10 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html suppressHydrationWarning lang="en">
+      <head>
+        <Script
+          src="https://unpkg.com/@phosphor-icons/web"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className={inter.className}>
-        <NUIProvider themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
-          {children}
-        </NUIProvider>
+        <NextAuthProvider>
+          <NUIProvider
+            themeProps={{ attribute: 'class', defaultTheme: 'dark' }}
+          >
+            {children}
+          </NUIProvider>
+        </NextAuthProvider>
       </body>
     </html>
   )

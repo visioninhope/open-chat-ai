@@ -1,18 +1,21 @@
 import { Button } from '@nextui-org/button'
 
+import GithubLoginButton from '@/components/github-login-button'
 import { ThemeSwitch } from '@/components/theme-switch'
+
 // import Image from 'next/image'
 
 async function getData() {
-  await new Promise((resolve) => setTimeout(resolve, 30000))
+  await new Promise((resolve) => setTimeout(resolve, 1000))
   return {
     message: 'Hello, loading-test!',
   }
 }
 
 export default async function Page() {
-  console.log('服务端环境访问的环境变量', process.env.NEXT_PUBLIC_BASEURL)
   const { message } = await getData()
+
+  console.log('next-auth密钥', process.env.AUTH_SECRET)
 
   return (
     <div className="min-h-screen w-full">
@@ -29,6 +32,16 @@ export default async function Page() {
       <h1>switch theme!</h1>
       <div className="flex justify-center">
         <ThemeSwitch />
+      </div>
+      <h1>Phosphor Icons图标集成</h1>
+      <div className="flex justify-center">
+        <i className="ph-fill ph-smiley text-lg"></i>
+        <i className="ph-bold ph-smiley"></i>
+        <i className="ph-light ph-smiley"></i>
+      </div>
+      <h1>github授权登录</h1>
+      <div className="flex justify-center">
+        <GithubLoginButton redirectPath="/" />
       </div>
     </div>
   )
