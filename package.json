@@ -9,7 +9,6 @@
     "lint": "next lint",
     "lint:style": "stylelint '**/*.{css,scss}'",
     "lint:style:fix": "stylelint '**/*.{css,scss}' --fix",
-    "preinstall": "npx only-allow pnpm",
     "prepare": "husky"
   },
   "dependencies": {
