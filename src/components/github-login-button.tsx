@@ -3,20 +3,17 @@
 import { useEffect, useState } from 'react'
 
 import { Button } from '@nextui-org/button'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 import type { ToastProps } from '@/components/toast'
 import Toast from '@/components/toast'
-
-import { signInByGithub } from '@/lib/auth/actions'
 
 interface IProps {
   redirectPath: string
 }
 
 export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
-  const router = useRouter()
   const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const [showToast, setShowToast] = useState<ToastProps | null>(null)
@@ -47,44 +44,6 @@ export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
       // })
     } catch (error) {
       console.error('github授权登录失败', error)
-      setShowToast({
-        isVisible: true,
-        message: '服务器出了点意外，请稍后再试试~',
-        type: 'error',
-        onClose: () => {
-          setShowToast(null)
-          setIsLoading(false)
-        },
-      })
-    }
-    return
-    try {
-      const res = await signInByGithub(redirectPath)
-      if (res && res.code === 0) {
-        console.log('github登录成功~')
-        setShowToast({
-          isVisible: true,
-          message: '登录成功，开始使用吧~',
-          type: 'success',
-          onClose: () => {
-            setShowToast(null)
-            router.refresh()
-          },
-        })
-      } else {
-        console.log('github登录失败', res?.message)
-        setShowToast({
-          isVisible: true,
-          message: res?.message as string,
-          type: 'error',
-          onClose: () => {
-            setShowToast(null)
-            setIsLoading(false)
-          },
-        })
-      }
-    } catch (error) {
-      console.log('github登录失败', error)
       setShowToast({
         isVisible: true,
         message: '服务器出了点意外，请稍后再试试~',
