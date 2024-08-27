@@ -39,7 +39,7 @@ export default async function Page() {
         <i className="ph-bold ph-smiley"></i>
         <i className="ph-light ph-smiley"></i>
       </div>
-      <h1>github授权登录</h1>
+      <h1>github授权登录和注销按钮</h1>
       <div className="flex justify-center">
         <GithubLoginButton redirectPath="/" />
       </div>
