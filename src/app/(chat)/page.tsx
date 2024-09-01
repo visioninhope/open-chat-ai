@@ -1,6 +1,8 @@
-import { Button } from '@nextui-org/button'
+// import { Button } from '@nextui-org/button'
+import { Input } from '@nextui-org/input'
+import Link from 'next/link'
 
-import GithubLoginButton from '@/components/github-login-button'
+import SignInOrOutModal from '@/components/signin-signout-modal'
 import { ThemeSwitch } from '@/components/theme-switch'
 
 // import Image from 'next/image'
@@ -8,7 +10,7 @@ import { ThemeSwitch } from '@/components/theme-switch'
 async function getData() {
   await new Promise((resolve) => setTimeout(resolve, 1000))
   return {
-    message: 'Hello, loading-test!',
+    message: 'switch theme!',
   }
 }
 
@@ -18,18 +20,8 @@ export default async function Page() {
   console.log('next-auth密钥', process.env.AUTH_SECRET)
 
   return (
-    <div className="min-h-screen w-full">
-      <h1 className="text-center">{message}</h1>
-      <div className="flex justify-center">
-        {' '}
-        <Button color="default">Default</Button>
-        <Button color="primary">Primary</Button>
-        <Button color="secondary">Secondary</Button>
-        <Button color="success">Success</Button>
-        <Button color="warning">Warning</Button>
-        <Button color="danger">Danger</Button>
-      </div>
-      <h1>switch theme!</h1>
+    <div className="flex min-h-screen w-full flex-col items-center">
+      <h1>{message}</h1>
       <div className="flex justify-center">
         <ThemeSwitch />
       </div>
@@ -41,7 +33,15 @@ export default async function Page() {
       </div>
       <h1>github授权登录和注销按钮</h1>
       <div className="flex justify-center">
-        <GithubLoginButton redirectPath="/" />
+        <SignInOrOutModal redirectPath="/" />
+      </div>
+      <div>link标签跳转</div>
+      <div className="flex justify-center">
+        <Link href="/share/3123123">新建对话</Link>
+      </div>
+      <div className="flex w-full flex-wrap gap-4 md:flex-nowrap">
+        <Input type="email" label="Email" />
+        <Input type="email" label="Email" placeholder="Enter your email" />
       </div>
     </div>
   )

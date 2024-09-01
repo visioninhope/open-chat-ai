@@ -1,10 +1,13 @@
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 
+import ConfirmDialog from '@/components/confirm-dialog'
 import Toast from '@/components/toast'
 
+import { ConfirmDialogContextProvider } from '@/context/confirm-context'
 import { NextAuthProvider } from '@/context/next-auth-context'
 import NUIProvider from '@/context/next-ui-context'
+import { SidebarContextProvider } from '@/context/sidebar-context'
 import { ToastContextProvider } from '@/context/toast-context'
 
 import type { Metadata } from 'next'
@@ -36,12 +39,17 @@ export default function RootLayout({
           <NUIProvider
             themeProps={{ attribute: 'class', defaultTheme: 'dark' }}
           >
-            <ToastContextProvider>
-              <>
-                <Toast />
-                {children}
-              </>
-            </ToastContextProvider>
+            <SidebarContextProvider>
+              <ToastContextProvider>
+                <ConfirmDialogContextProvider>
+                  <>
+                    <Toast />
+                    <ConfirmDialog />
+                    {children}
+                  </>
+                </ConfirmDialogContextProvider>
+              </ToastContextProvider>
+            </SidebarContextProvider>
           </NUIProvider>
         </NextAuthProvider>
       </body>

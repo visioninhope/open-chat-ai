@@ -1,12 +1,8 @@
 'use client'
 
-import React, { useState, createContext } from 'react'
+import { useState, createContext, ReactNode } from 'react'
 
 import type { ToastProps } from '@/components/toast'
-
-/**
- * User 数据来源、更新来源可以是多个组件，这里context初始值永远是空数组，仅仅用于共享数据
- */
 
 interface IToastContextProps {
   toastInfo: ToastProps | null
@@ -15,14 +11,14 @@ interface IToastContextProps {
 }
 
 interface IProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const ToastContext = createContext<IToastContextProps>(
   {} as IToastContextProps,
 )
 
-export const ToastContextProvider = ({ children }: IProps): React.ReactNode => {
+export const ToastContextProvider = ({ children }: IProps): ReactNode => {
   const [toastInfo, setToastInfo] = useState<ToastProps>({
     isVisible: false,
     message: 'toast info!',

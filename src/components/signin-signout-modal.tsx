@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from '@nextui-org/button'
 // import { useRouter } from 'next/navigation'
@@ -8,18 +8,18 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 
 import ModalContainer from '@/components/modal-container'
 
-import { ToastContext } from '@/context/toast-context'
+import { useToast } from '@/lib/hooks/use-toast'
 
 interface IProps {
   redirectPath: string
 }
 
-export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
+export default function SignInOrOutModal({ redirectPath = '/' }: IProps) {
   const { data: session, status } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const [isShowModal, setIsShowModal] = useState(false)
 
-  const { showToast } = useContext(ToastContext)
+  const { showToast } = useToast()
 
   const handleSignOut = async () => {
     setIsLoading(true)
@@ -37,6 +37,11 @@ export default function GithubLoginButton({ redirectPath = '/' }: IProps) {
   }
 
   const handleLoginClick = async () => {
+    // showToast({
+    //   isVisible: true,
+    //   message: '消息',
+    // })
+    // return
     setIsLoading(true)
     try {
       await signIn('github', { callbackUrl: redirectPath })
