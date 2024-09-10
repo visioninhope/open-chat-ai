@@ -3,6 +3,7 @@ export default {
   plugins: ['stylelint-scss'],
   rules: {
     'at-rule-no-unknown': null, // 先禁用默认的规则
+    'rule-empty-line-before': null,
     'scss/at-rule-no-unknown': [
       true,
       {

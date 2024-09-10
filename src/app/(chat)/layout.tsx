@@ -12,7 +12,7 @@ export default function ProfileLaout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <div className="flex h-screen w-full justify-start overflow-hidden">
+    <div className="flex h-svh w-full justify-start overflow-hidden">
       <SideBarNav />
       {/* <div className="flex h-full w-40 flex-shrink-0 items-center justify-center bg-primary-50 text-tiny shadow-lg shadow-default-300">
         <span>CHAT-AI 聊天记录</span>

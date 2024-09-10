@@ -11,7 +11,31 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      //  扩展backgroundImage属性，增加了gradient-radial和gradient-conic两个原子类
+      keyframes: {
+        'printer-text': {
+          '0%': { width: '0' },
+          '80%': { width: '100%' },
+          '90%': { width: '100%' },
+          '100%': {
+            width: '100%',
+            'text-overflow': 'ellipsis',
+          },
+        },
+        'box-move': {
+          '0%': {
+            transform: 'translate3d(0, 2.5rem, 0)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translate3d(0, 0, 0)',
+            opacity: '1',
+          },
+        },
+      },
+      animation: {
+        'printer-text': 'printer-text 3s forwards 500ms',
+        'enter-move': 'box-move 1.5s forwards',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

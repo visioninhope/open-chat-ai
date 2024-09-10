@@ -1,9 +1,11 @@
 // import { Button } from '@nextui-org/button'
-import { Input } from '@nextui-org/input'
-import Link from 'next/link'
+// import { Input } from '@nextui-org/input'
+// import Link from 'next/link'
 
-import SignInOrOutModal from '@/components/signin-signout-modal'
-import { ThemeSwitch } from '@/components/theme-switch'
+import LogoTextBox from '@/components/animation/logo-text-box/index'
+import Chat from '@/components/chat'
+// import SignInOrOutModal from '@/components/signin-signout-modal'
+// import { ThemeSwitch } from '@/components/theme-switch'
 
 // import Image from 'next/image'
 
@@ -17,11 +19,19 @@ async function getData() {
 export default async function Page() {
   const { message } = await getData()
 
+  console.log(message)
+
   console.log('next-auth密钥', process.env.AUTH_SECRET)
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center">
-      <h1>{message}</h1>
+    <main className="relative h-full w-full overflow-hidden">
+      <header className="absolute left-[50%] top-0 translate-x-[-50%]">
+        <LogoTextBox />
+      </header>
+
+      <Chat />
+
+      {/* <h1>{message}</h1>
       <div className="flex justify-center">
         <ThemeSwitch />
       </div>
@@ -42,7 +52,7 @@ export default async function Page() {
       <div className="flex w-full flex-wrap gap-4 md:flex-nowrap">
         <Input type="email" label="Email" />
         <Input type="email" label="Email" placeholder="Enter your email" />
-      </div>
-    </div>
+      </div> */}
+    </main>
   )
 }

@@ -6,6 +6,7 @@ html,
 body {
   width: 100% !important;
   height: 100% !important;
+  overflow: hidden;
 }
 
 /* 工具样式复用 */
@@ -24,5 +25,13 @@ body {
 
   .x-y-center {
     @apply flex items-center justify-center;
+  }
+
+  .shadow-top-box {
+    --tw-shadow: 0 0 15px rgb(0 0 0 / 30%);
+    --tw-shadow-colored: 0 0 15px var(--tw-shadow-color);
+
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),
+      var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
   }
 }

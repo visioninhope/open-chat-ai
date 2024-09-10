@@ -1,5 +1,7 @@
 import { cache } from 'react'
 
+import { ScrollShadow } from '@nextui-org/scroll-shadow'
+
 import ConversationMenu from './conversation-menu'
 import Result from './result'
 
@@ -21,7 +23,10 @@ export default async function ChatHistoryList({
   const conversationsRes = await loadConversations(userId)
 
   return (
-    <div className="mr-[-0.5rem] w-[252px] flex-1 flex-shrink-0 overflow-y-auto">
+    <ScrollShadow
+      hideScrollBar
+      className="mr-[-0.5rem] w-[252px] flex-1 flex-shrink-0"
+    >
       <div className="w-[244px]">
         {conversationsRes.code !== 0 ? (
           <div className="mt-12 flex w-full justify-center">
@@ -37,6 +42,6 @@ export default async function ChatHistoryList({
           />
         )}
       </div>
-    </div>
+    </ScrollShadow>
   )
 }

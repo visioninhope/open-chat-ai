@@ -5,7 +5,20 @@ import { Popover, PopoverTrigger, PopoverContent } from '@nextui-org/popover'
 
 import { ThemeSwitch } from '@/components/theme-switch'
 
+import { useConfirm } from '@/lib/hooks/use-confrim'
+
 export default function ChatHistoryFooter() {
+  const { showConfirmDialog } = useConfirm()
+
+  const handleClearAllHistory = () => {
+    showConfirmDialog({
+      content: '清除后所有聊天记录都将消失，不可恢复，是否确认清除？',
+      onConfirm: () => {
+        alert('确认清除')
+      },
+    })
+  }
+
   return (
     <div className="flex w-[244px] flex-col items-center pt-2">
       <Divider className="mb-2 w-full" />
@@ -17,7 +30,7 @@ export default function ChatHistoryFooter() {
               <Avatar
                 isBordered
                 size="sm"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                src="https://avatars.githubusercontent.com/u/30461603?v=4"
               />
               {/* 用户名称 */}
               <div className="ml-3 w-[156px] flex-shrink-0 truncate">
@@ -50,7 +63,9 @@ export default function ChatHistoryFooter() {
       </Popover>
 
       <div className="flex h-[3.25rem] w-full cursor-pointer items-center justify-between px-3 text-sm transition-all duration-200 ease-in-out hover:bg-default-200 hover:bg-opacity-50">
-        <div className="hover:opacity-80">清除所有聊天</div>
+        <div className="hover:opacity-80" onClick={handleClearAllHistory}>
+          清除所有聊天
+        </div>
         <div className="flex items-center justify-between">
           <ThemeSwitch />
         </div>

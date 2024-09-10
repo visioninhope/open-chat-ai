@@ -8,8 +8,6 @@ import { useRouter } from 'next/navigation'
 
 import { handleKeyBoardInWeChat } from '@/utils/common'
 
-import styles from './styles/animation.module.scss'
-
 import { useConfirm } from '@/lib/hooks/use-confrim'
 import { Conversation } from '@/types/user'
 
@@ -99,7 +97,9 @@ export default function ConversationMenu({
                 <div
                   className={clsx(
                     'ml-2 whitespace-nowrap',
-                    item.is_new_create ? styles['first-create-active'] : '',
+                    item.is_new_create
+                      ? 'w-0 animate-printer-text overflow-hidden'
+                      : '',
                   )}
                   title={item.name}
                   onAnimationEnd={

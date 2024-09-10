@@ -65,14 +65,14 @@ const SidebarContainer: FC<SidebarContainerProps> = ({ children }) => {
       {/* SidebarContainer */}
       <div
         className={clsx(
-          'fixed top-0 z-50 h-full w-[260px] transition-transform duration-300',
+          'fixed top-0 z-50 h-full w-[260px] transition-all duration-300',
           {
             'translate-x-0': isSidebarOpen,
             '-translate-x-full': !isSidebarOpen,
-            'sm:translate-x-0': isSidebarOpen,
-            'sm:-translate-x-full': !isSidebarOpen,
+            'sm:w-[260px] sm:translate-x-0': isSidebarOpen,
+            'sm:w-0 sm:-translate-x-full': !isSidebarOpen,
           },
-          'sm:relative sm:w-[260px] sm:flex-shrink-0', // Relative position on screens >= 760px
+          'sm:relative sm:flex-shrink-0', // Relative position on screens >= 760px
         )}
       >
         {children}
